@@ -37,17 +37,19 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     tiles.setWallAt(tiles.locationInDirection(tiles.locationOfSprite(mySprite), CollisionDirection.Bottom), true)
     tiles.setTileAt(tiles.locationInDirection(tiles.locationOfSprite(mySprite), CollisionDirection.Bottom), assets.tile`energy`)
+    music.spooky.play()
 })
 scene.onHitWall(SpriteKind.Enemy, function (sprite, location) {
     sprites.wall_jump(sprite)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`door2`, function (sprite, location) {
     game.over(true)
-    music.baDing.play()
+    music.magicWand.play()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`ring`, function (sprite, location) {
     tiles.setTileAt(location, assets.tile`transparency16`)
     info.changeScoreBy(1)
+    music.baDing.play()
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     animation.runImageAnimation(
@@ -60,6 +62,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Projectile, assets.tile`boulder`, function (sprite, location) {
     tiles.setWallAt(location, false)
     tiles.setTileAt(location, assets.tile`transparency16`)
+    music.smallCrash.play()
 })
 scene.onOverlapTile(SpriteKind.Enemy, assets.tile`energy`, function (sprite, location) {
     tiles.placeOnRandomTile(sprite, assets.tile`rubble`)
@@ -67,6 +70,7 @@ scene.onOverlapTile(SpriteKind.Enemy, assets.tile`energy`, function (sprite, loc
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     sprite.destroy()
+    music.pewPew.play()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`door1`, function (sprite, location) {
     scene.setBackgroundImage(assets.image`background2`)
@@ -78,6 +82,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`door1`, function (sprite, loc
     false
     )
     game.level_num(2)
+    music.beamUp.play()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     tiles.placeOnRandomTile(otherSprite, assets.tile`rubble`)
@@ -88,6 +93,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     200,
     false
     )
+    music.thump.play()
 })
 let projectile: Sprite = null
 let mySprite: Sprite = null
